@@ -15,11 +15,10 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @author nagarjun
  */
-
 class ExcludedRoute extends Model {
 
     protected $fillable = [
-        'id', 'action', 'created_at', 'updated_at'
+        'id', 'action', 'method', 'created_at', 'updated_at'
     ];
 
 }

@@ -15,38 +15,33 @@ namespace Nagarjun\ACL\Middlewares;
  */
 use Auth;
 use Nagarjun\ACL\Models\Permission;
+use Nagarjun\ACL\Models\ExcludedRoute;
 use Closure;
 use Route;
 
 class PermissionMiddleware {
 
-    //put your code here
     public function handle($request, Closure $next) {
-        // $authArray = array(
-        //     'login','logout','register','password/reset/{token?}',
-        //     'password/email','password/reset','home','/'
-        // );
-        // if(!in_array(Route::current()->uri(),$authArray)) {
         if (isset(Auth::user()->Role->id)) {
             $permission = Permission::where('role_id', Auth::user()->Role->id)
-                            ->where('action', Route::current()->uri())->count();
-            if ($permission) {
+                    ->where('action', Route::current()->uri())
+                    ->where('method', implode(',', Route::current()->method))
+                    ->count();
+            $excluded = ExcludedRoute::where('action', Route::current()->uri())
+                    ->where('method', implode(',', Route::current()->method))
+                    ->count();
+            if ($permission > 0 || $excluded > 0) {
                 return $next($request);
             } else {
                 return redirect()->intended('/home')
                                 ->with('status', "Sorry..! You Don't have permission to access this page")
                                 ->with('alert', 'warning');
             }
-            // } else {
-            //     return $next($request);
         } else {
             return redirect()->intended('/home')
                             ->with('status', "Sorry..! You Don't have permission to access this page")
                             ->with('alert', 'warning');
         }
-        // } else {
-        //     return $next($request);
-        // }
     }
 
 }

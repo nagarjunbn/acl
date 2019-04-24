@@ -18,6 +18,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model {
 
-    protected $fillable = ['id','role_id','action',
+    protected $fillable = ['id','role_id','action','method',
         'created_at','updated_at'];
 }

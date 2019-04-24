@@ -15,6 +15,7 @@ class CreateExcludedRoutesTable extends Migration {
         Schema::create('excluded_routes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('action');
+            $table->string('method');
             $table->timestamps();
         });
     }

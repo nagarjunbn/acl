@@ -33,6 +33,7 @@ class PermissionController extends Controller {
         foreach (Route::getRoutes() as $route) {
             $routes[$i++] = [
                 'path' => $route->uri(),
+                'method' => implode(',', $route->methods())
             ];
         }
         return view('ACL::exclude_index', ['routes' => $routes, 'excludedRoutes' => $excludedRoutes]);
@@ -42,10 +43,13 @@ class PermissionController extends Controller {
         $data = $request->all();
         ExcludedRoute::truncate();
         if (isset($data['routes'])) {
-            foreach ($data['routes'] as $route) {
-                ExcludedRoute::create([
-                    'action' => $route
-                ]);
+            foreach ($data['routes'] as $action => $methods) {
+                foreach ($methods as $method) {
+                    ExcludedRoute::create([
+                        'action' => $action,
+                        'method' => $method
+                    ]);
+                }
             }
         }
         return redirect()->intended('/home')
@@ -58,28 +62,34 @@ class PermissionController extends Controller {
         $permissions = Permission::all();
         $routes = array();
         $i = 0;
-        $excludedRoutes = ExcludedRoute::all();
-        $excludedRouteArray = $excludedRoutes->pluck('action')->toArray();
         foreach (Route::getRoutes() as $route) {
-            if (!in_array($route->uri(), $excludedRouteArray) && $route->getActionName() !== 'Closure') {
+            $excluded = ExcludedRoute::where('action', $route->uri())
+                    ->where('method', implode(',', $route->methods()))
+                    ->count();
+            if ($excluded == 0) {
                 $routes[$i++] = [
                     'path' => $route->uri(),
+                    'method' => implode(',', $route->methods())
                 ];
             }
         }
-        return view('ACL::index', ['routes' => $routes, 'roles' => $roles, 'permissions' => $permissions]);
+        return view('ACL::index', ['routes' => $routes, 'roles' => $roles,
+            'permissions' => $permissions]);
     }
 
     public function savePermission(Request $request) {
         $data = $request->all();
         Permission::truncate();
         if (isset($data['permission'])) {
-            foreach ($data['permission'] as $keyRole => $role) {
-                foreach ($role as $r) {
-                    Permission::create([
-                        'role_id' => $keyRole,
-                        'action' => $r
-                    ]);
+            foreach ($data['permission'] as $roleID => $actions) {
+                foreach ($actions as $action => $methods) {
+                    foreach ($methods as $method) {
+                        Permission::create([
+                            'role_id' => $roleID,
+                            'action' => $action,
+                            'method' => $method
+                        ]);
+                    }
                 }
             }
         }
@@ -94,7 +104,13 @@ class PermissionController extends Controller {
     }
 
     public function saveRole(Request $request) {
-        
+        Role::create([
+            'name' => $request->name,
+            'acl_enabled' => 'yes'
+        ]);
+        return redirect()->intended('/home')
+                        ->with('status', 'Role added successfully')
+                        ->with('alert', 'success');
     }
 
 }

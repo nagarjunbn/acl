@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<form action="{{ url('/permission/updatePermission') }}" method="post">
+<form action="{{ url('/acl/permissionList') }}" method="post">
     {{csrf_field()}}
     <table class="table table-bordered table-responsive">
         <tr>
@@ -11,28 +11,21 @@
         </tr>
         @foreach($routes as $route)
         <tr>
-            <td>{{$route['path']}}</td>
+            <td>{{$route['path']}} - {{$route['method']}}</td>
             @foreach($roles as $role)
-            @php($checked = false)
+            @php($checked = '')
             @foreach($permissions as $permission)
-            @if($permission->role_id == $role->id && $permission->action == $route['path'])
-            @php($checked = true)
+            @if($permission->role_id == $role->id && $permission->action == $route['path'] && $permission->method == $route['method'])
+            @php($checked = 'checked')
             @endif
             @endforeach
-            @if($checked)
             <td>
-                <input type="checkbox" name="permission[{{$role->id}}][{{$route['path']}}]" value="{{ $route['path'] }}" checked=""/>
+                <input type="checkbox" name="permission[{{$role->id}}][{{$route['path']}}][{{$route['method']}}]" value="{{ $route['method'] }}" {{$checked}}/>
             </td>
-            @else
-            <td>
-                <input type="checkbox" name="permission[{{$role->id}}][{{$route['path']}}]" value="{{ $route['path'] }}"/>
-            </td>
-            @endif
             @endforeach
         </tr>
         @endforeach
     </table>
     <button type="submit" class="btn btn-info">Submit</button>
-    <a class="btn btn-default pull-right" href="{{ url('/home') }}">Cancel</a>
 </form>
 @endsection

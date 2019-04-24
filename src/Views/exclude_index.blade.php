@@ -9,16 +9,16 @@
         </tr>
         @foreach($routes as $route)
         <tr>
-            <td>{{$route['path']}}</td>
+            <td>{{$route['path']}} - {{$route['method']}}</td>
             @php($checked = '')
             @foreach($excludedRoutes as $excludedRoute)
-                @if($excludedRoute->action == $route['path'])
+                @if($excludedRoute->action == $route['path'] && $excludedRoute->method == $route['method'])
                     @php($checked = 'checked')
                     @break
                 @endif
             @endforeach
             <td>
-                <input type="checkbox" name="routes[]" value="{{ $route['path'] }}" {{$checked}}/>
+                <input type="checkbox" name="routes[{{ $route['path'] }}][{{ $route['method'] }}]" value="{{ $route['method'] }}" {{$checked}}/>
             </td>
         </tr>
         @endforeach

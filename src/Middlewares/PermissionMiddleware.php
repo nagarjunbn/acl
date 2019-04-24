@@ -33,12 +33,12 @@ class PermissionMiddleware {
             if ($permission > 0 || $excluded > 0) {
                 return $next($request);
             } else {
-                return redirect()->intended('/home')
+                return redirect()->intended('/acl')
                                 ->with('status', "Sorry..! You Don't have permission to access this page")
                                 ->with('alert', 'warning');
             }
         } else {
-            return redirect()->intended('/home')
+            return redirect()->intended('/acl')
                             ->with('status', "Sorry..! You Don't have permission to access this page")
                             ->with('alert', 'warning');
         }

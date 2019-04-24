@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('ACL::layout')
 @section('content')
 <form action="{{ url('/acl/permissionList') }}" method="post">
     {{csrf_field()}}

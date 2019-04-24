@@ -16,7 +16,12 @@
         </tr>
         @endforeach
         <tr>
-            <td><input name="name" class="form-control" required=""/></td>
+            <td>
+                <input name="name" class="form-control" value="{{old('name')}}"/>
+                @if ($errors->has('name'))
+                    <strong>{{ $errors->first('name') }}</strong>
+                @endif
+            </td>
             <td></td>
             <td></td>
         </tr>

@@ -52,7 +52,7 @@ class PermissionController extends Controller {
                 }
             }
         }
-        return redirect()->intended('/home')
+        return redirect()->intended('/acl/dashboard')
                         ->with('status', 'Excluded routes updated successfully')
                         ->with('alert', 'success');
     }
@@ -93,7 +93,7 @@ class PermissionController extends Controller {
                 }
             }
         }
-        return redirect()->intended('/home')
+        return redirect()->intended('/acl/dashboard')
                         ->with('status', 'Permissions update successfully')
                         ->with('alert', 'success');
     }
@@ -104,11 +104,14 @@ class PermissionController extends Controller {
     }
 
     public function saveRole(Request $request) {
+        $request->validate([
+            'name' => 'required|unique:roles,name'
+        ]);
         Role::create([
             'name' => $request->name,
             'acl_enabled' => 'yes'
         ]);
-        return redirect()->intended('/home')
+        return redirect()->intended('/acl/dashboard')
                         ->with('status', 'Role added successfully')
                         ->with('alert', 'success');
     }

@@ -1,8 +1,10 @@
 # simple roles-permission management for laravel   
-1. Install plugin via command 
+1a. Install plugin via command 
 ```
 composer require nagarjunbn/acl
 ```
+1b. Register the service provider in ```app.php```
+```Nagarjun\ACL\ACLServiceProvider::class```
 2. Migrate the new tables
 3. Update your Users table and add ```'role_id'``` column 
 4. Add the below code to your User.php model file

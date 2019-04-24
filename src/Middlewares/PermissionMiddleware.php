@@ -22,15 +22,17 @@ use Route;
 class PermissionMiddleware {
 
     public function handle($request, Closure $next) {
-        if (isset(Auth::user()->Role->id)) {
+        $excluded = ExcludedRoute::where('action', Route::current()->uri())
+                ->where('method', implode(',', Route::current()->methods()))
+                ->count();
+        if($excluded > 0) {
+            return $next($request);
+        } else if (isset(Auth::user()->Role->id)) {
             $permission = Permission::where('role_id', Auth::user()->Role->id)
                     ->where('action', Route::current()->uri())
-                    ->where('method', implode(',', Route::current()->method))
+                    ->where('method', implode(',', Route::current()->methods()))
                     ->count();
-            $excluded = ExcludedRoute::where('action', Route::current()->uri())
-                    ->where('method', implode(',', Route::current()->method))
-                    ->count();
-            if ($permission > 0 || $excluded > 0) {
+            if ($permission > 0) {
                 return $next($request);
             } else {
                 return redirect()->intended('/acl')

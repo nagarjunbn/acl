@@ -20,5 +20,7 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::get('/acl/roleList', 'Nagarjun\ACL\Controllers\PermissionController@rolesList');
         Route::post('/acl/roleList', 'Nagarjun\ACL\Controllers\PermissionController@saveRole');
+        
+        Route::get('/acl/userList', 'Nagarjun\ACL\Controllers\PermissionController@userList');
     }
 });

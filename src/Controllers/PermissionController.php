@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 use Nagarjun\ACL\Models\Role;
 use Nagarjun\ACL\Models\Permission;
 use Nagarjun\ACL\Models\ExcludedRoute;
-use App\User;
 use App\Http\Controllers\Controller;
 
 /**
@@ -116,10 +115,4 @@ class PermissionController extends Controller {
                         ->with('status', 'Role added successfully')
                         ->with('alert', 'success');
     }
-    
-    public function userList() {
-        $users = User::paginate(20);
-        return view('ACL::user_index', ['users' => $users]);
-    }
-
 }

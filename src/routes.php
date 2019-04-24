@@ -3,8 +3,8 @@
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('acl', function() {
-        return response()->view(env('ACL_ERROR_PAGE','ACL::unauthorized'))
-                ->setStatusCode(env('ACL_ERROR_CODE',403));
+        return response()->view(env('ACL_ERROR_PAGE', 'ACL::unauthorized'))
+                        ->setStatusCode(env('ACL_ERROR_CODE', 403));
     });
 
     if (App::environment('local')) {
@@ -20,7 +20,5 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::get('/acl/roleList', 'Nagarjun\ACL\Controllers\PermissionController@rolesList');
         Route::post('/acl/roleList', 'Nagarjun\ACL\Controllers\PermissionController@saveRole');
-        
-        Route::get('/acl/userList', 'Nagarjun\ACL\Controllers\PermissionController@userList');
     }
 });

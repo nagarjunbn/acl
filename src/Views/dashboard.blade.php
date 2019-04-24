@@ -9,6 +9,5 @@
     <a href="{{url('/acl/roleList')}}">Roles list</a> <br>
     <a href="{{url('/acl/permissionList')}}">Permission list</a> <br>
     <a href="{{url('/acl/excludeRouteList')}}">Exclude Route list</a> <br>
-    <a href="{{url('/acl/userList')}}">User list</a> <br>
 </div>
 @endsection

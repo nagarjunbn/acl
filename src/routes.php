@@ -7,7 +7,7 @@ Route::group(['middleware' => ['web']], function () {
                         ->setStatusCode(env('ACL_ERROR_CODE', 403));
     });
 
-    if (App::environment('local')) {
+    if (env('ACL_ENV', 'debug') != 'production') {
         Route::get('/acl/dashboard', function() {
             return view('ACL::dashboard');
         });

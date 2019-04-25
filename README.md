@@ -28,7 +28,7 @@ http://domain/acl/dashboard
 8. Use the middleware ```'acl'``` in your routes,controllers to prevent the access .
 
 ## Screenshot
-![alt text](https://raw.githubusercontent.com/nagarjunbn/acl/screenshot/img1.png)
+![alt text](https://raw.githubusercontent.com/nagarjunbn/acl/master/screenshot/img1.png)
 
 ## License
 The composer plugin is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT)

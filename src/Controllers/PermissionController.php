@@ -15,6 +15,7 @@ use Nagarjun\ACL\Models\Role;
 use Nagarjun\ACL\Models\Permission;
 use Nagarjun\ACL\Models\ExcludedRoute;
 use App\Http\Controllers\Controller;
+use Nagarjun\ACL\Constants\PackageRoutes;
 
 /**
  * Description of PermissionController
@@ -30,13 +31,15 @@ class PermissionController extends Controller {
     public function excludeRouteList() {
         $i = 0;
         $excludedRoutes = ExcludedRoute::all();
+        $packageRoutes = PackageRoutes::all();
         foreach (Route::getRoutes() as $route) {
             $routes[$i++] = [
                 'path' => $route->uri(),
                 'method' => implode(',', $route->methods())
             ];
         }
-        return view('ACL::exclude_index', ['routes' => $routes, 'excludedRoutes' => $excludedRoutes]);
+        return view('ACL::exclude_index', ['routes' => $routes, 'excludedRoutes' => $excludedRoutes,
+            'packageRoutes' => $packageRoutes]);
     }
 
     public function saveExcludeRoute(Request $request) {

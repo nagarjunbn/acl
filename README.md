@@ -1,4 +1,4 @@
-# Simple roles-permission management for laravel
+# Roles-permission management for laravel with User interface
 
 ## Laravel version supported
 version >= 5.5 
@@ -12,7 +12,12 @@ composer require nagarjunbn/acl
 ```
 Nagarjun\ACL\ACLServiceProvider::class
 ```
-3. Migrate the new tables
+3. Seeding and migration 
+
+```
+php artisan migrate
+php artisan db:seed --class=Nagarjun\\ACL\\Seeding\\ExcludedRouteTableSeeder
+```
 4. Update your Users table and add ```'role_id'``` column 
 5. Add the below code to your User.php model file
 ```
@@ -31,4 +36,4 @@ http://domain/acl/dashboard
 ![alt text](https://raw.githubusercontent.com/nagarjunbn/acl/master/screenshot/img1.png)
 
 ## License
-The composer plugin is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT)
+The composer plugin is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT)	

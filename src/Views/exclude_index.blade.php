@@ -8,19 +8,24 @@
             <th>Status</th>
         </tr>
         @foreach($routes as $route)
-        <tr>
-            <td>{{$route['path']}} - {{$route['method']}}</td>
+            @php($class = '')
             @php($checked = '')
-            @foreach($excludedRoutes as $excludedRoute)
-                @if($excludedRoute->action == $route['path'] && $excludedRoute->method == $route['method'])
-                    @php($checked = 'checked')
-                    @break
-                @endif
-            @endforeach
-            <td>
-                <input type="checkbox" name="routes[{{ $route['path'] }}][{{ $route['method'] }}]" value="{{ $route['method'] }}" {{$checked}}/>
-            </td>
-        </tr>
+            @if(in_array($route['path'],$packageRoutes))
+                @php($checked = 'checked')
+                @php($class = 'hidden')
+            @endif
+            <tr class="{{$class}}">
+                <td>{{$route['path']}} - {{$route['method']}}</td>
+                @foreach($excludedRoutes as $excludedRoute)
+                    @if($excludedRoute->action == $route['path'] && $excludedRoute->method == $route['method'])
+                        @php($checked = 'checked')
+                        @break
+                    @endif
+                @endforeach
+                <td>
+                    <input type="checkbox" name="routes[{{ $route['path'] }}][{{ $route['method'] }}]" value="{{ $route['method'] }}" {{$checked}}/>
+                </td>
+            </tr>
         @endforeach
     </table>
     <button type="submit" class="btn btn-info">Submit</button>

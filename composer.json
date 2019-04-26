@@ -1,6 +1,6 @@
 {
     "name": "nagarjunbn/acl",
-    "description": "Role based access control for laravel",
+    "description": "Roles-permission management for laravel with User interface",
     "authors": [
         {
             "name": "Nagarjun",

@@ -17,6 +17,7 @@
             @foreach($permissions as $permission)
             @if($permission->role_id == $role->id && $permission->action == $route['path'] && $permission->method == $route['method'])
             @php($checked = 'checked')
+            @break
             @endif
             @endforeach
             <td>

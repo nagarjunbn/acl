@@ -1,5 +1,14 @@
 # Roles-permission management for laravel with User interface
 
+[![Latest Stable Version](https://poser.pugx.org/nagarjunbn/acl/v/stable)](https://packagist.org/packages/nagarjunbn/acl)
+[![Total Downloads](https://poser.pugx.org/nagarjunbn/acl/downloads)](https://packagist.org/packages/nagarjunbn/acl)
+[![Latest Unstable Version](https://poser.pugx.org/nagarjunbn/acl/v/unstable)](https://packagist.org/packages/nagarjunbn/acl)
+[![License](https://poser.pugx.org/nagarjunbn/acl/license)](https://packagist.org/packages/nagarjunbn/acl)
+[![Monthly Downloads](https://poser.pugx.org/nagarjunbn/acl/d/monthly)](https://packagist.org/packages/nagarjunbn/acl)
+[![Daily Downloads](https://poser.pugx.org/nagarjunbn/acl/d/daily)](https://packagist.org/packages/nagarjunbn/acl)
+[![composer.lock](https://poser.pugx.org/nagarjunbn/acl/composerlock)](https://packagist.org/packages/nagarjunbn/acl)
+
+
 ## Laravel version supported
 version >= 5.5 
 
